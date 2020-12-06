@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    overflow-x: hidden;
+}
+        
+.img-zoom-container {
+  position: relative;
+}
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  /*set the size of the lens:*/
+  width: 100px;
+  height: 25vh;
+}
+
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  width:100%;
+  height:80vh;
+}
+
+#myresult{
+    background-color:grey;
+    border:8px solid grey;
+    visibility: hidden;
+    height:90vh;
+}
+#myimage{
+    width:100%;
+    height:90vh;
+    
+}
