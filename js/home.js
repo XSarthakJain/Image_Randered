@@ -1,6 +1,6 @@
 
 function readURL(input) {
-    //document.getElementById("shareSubmitButton").type="submit";
+    
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       
@@ -9,6 +9,10 @@ function readURL(input) {
       }
       
       reader.readAsDataURL(input.files[0]); // convert to base64 string
+
+    // Validation
+    document.getElementById("upload_Image").style.display="block";
+    document.getElementById("SelectFileId").style.display="none";
     }
   
     
