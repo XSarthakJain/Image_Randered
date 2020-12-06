@@ -22,7 +22,10 @@
         <div class="main_Content_Outer">
             <div class="innner_Content">
                 <h4>Choose a Image</h4><br><hr>
-                <input type="file" name="image" id="SelectFileId"><br>
+                <form method="post" action="" enctype="multipart/form-data">
+                <input type="file" name="image" id="SelectFileId" accept="image/*">
+                </form>
+                <br>
 
                 <img src="" id="imagePlacedID">
                 
