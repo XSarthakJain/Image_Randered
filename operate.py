@@ -14,11 +14,13 @@ from werkzeug.datastructures import  FileStorage
 from datetime import date
 #import pymysqlpymysql.install_as_MySQLdb()
 import time
+from sqlalchemy import text
 
 from authlib.integrations.flask_client import OAuth
 from termcolor import colored
 import json
-
+import pymysql
+pymysql.install_as_MySQLdb()
 # from werkzeug import secure_filename
 
 with open("config.json",'r') as c:
@@ -199,20 +201,44 @@ def home():
 
 @app.route('/upload_image',methods=['GET', 'POST'])
 def upload_image():
+    
+    sql = text('SELECT * FROM regulation_table ORDER BY dateTime DESC LIMIT 6')
+    result1 = db.engine.execute(sql)
+    later = datetime.now()
+    result2=[result[0] for result in result1]
+    counter=0
+    for i in result2:
+        # print("Date==========",type(i))
+        diff = (later-i)
+        print("diff.days*24*60*60 + diff.seconds",diff.days*24*60*60 + diff.seconds)
+        if (diff.days*24*60*60 + diff.seconds)<60:
+            counter+=1
+        else:
+            counter=0
+            break
+    print("Counter",counter)
 
-    entry=Regulation_table(dateTime=datetime.now())
-    db.session.add(entry)
-    db.session.commit()
-    if (request.method=="POST"):
-        f=request.files['imageData']
-        f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
-        return render_template("upload_image.html",result = "static/img/"+f.filename)
-    # if session.get("Permission")=='Access':
-    #     img = request.args["imageData"]
-    #     print(img)
+    if (counter<=4):
+        if (request.method=="POST"):
+
+                # Insert Data
+            entry=Regulation_table(dateTime=datetime.now())
+            db.session.add(entry)
+            db.session.commit()
+
+            f=request.files['imageData']
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
+            return render_template("upload_image.html",result = "static/img/"+f.filename)
+            # if session.get("Permission")=='Access':
+            #     img = request.args["imageData"]
+            #     print(img)
+                
+        else:
+            return "Invalid Request"
         
     else:
-        return "Invalid Request"
+        return "Too many Access"
+
 
 
 
