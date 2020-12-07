@@ -2,13 +2,18 @@ from flask import Flask, render_template,session,request,redirect
 import requests
 # from .models import User
 import os
+from datetime import datetime
 #import secrets
-# from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+# from sqlalchemy.dialects.mysql TIME
+# from sqlalchemy.dialects.mysql DATE
 import os
 # from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
-
+from datetime import date
+#import pymysqlpymysql.install_as_MySQLdb()
+import time
 
 from authlib.integrations.flask_client import OAuth
 from termcolor import colored
@@ -24,15 +29,20 @@ with open("config.json",'r') as c:
 # ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)  
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/imagerender'
+db = SQLAlchemy(app)
+
+class Regulation_table(db.Model):
+    dateTime = db.Column(db.String(100))
+    SNo = db.Column(db.Integer,primary_key=True)
+
+
+
 app.config['UPLOAD_FOLDER']=params['upload_location']
 app.config['SECRET_KEY'] = 'oh_so_secret'
 oauth = OAuth(app)
 # GOOGLE_CLIENT_ID=""
 # GOOGLE_CLIENT_SECRET=""
-
-GOOGLE_CLIENT_ID="931265162744-dpr2406ub157b0hqo2vs76mn2gg0v072.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET="EwHXUuEy1sXQALTpIxBmooZc"
-
 
 
 # oauth.register(
@@ -189,6 +199,10 @@ def home():
 
 @app.route('/upload_image',methods=['GET', 'POST'])
 def upload_image():
+
+    entry=Regulation_table(dateTime=datetime.now())
+    db.session.add(entry)
+    db.session.commit()
     if (request.method=="POST"):
         f=request.files['imageData']
         f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
