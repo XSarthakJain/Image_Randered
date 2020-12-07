@@ -13,11 +13,14 @@ from termcolor import colored
 
 # UPLOAD_FOLDER = '/static/'
 # ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
-app = Flask(__name__)
+app = Flask(__name__)  
+app.config['SECRET_KEY'] = 'oh_so_secret'
 oauth = OAuth(app)
-GOOGLE_CLIENT_ID=""
-GOOGLE_CLIENT_SECRET=""
+# GOOGLE_CLIENT_ID=""
+# GOOGLE_CLIENT_SECRET=""
+
+
+
 # oauth.register(
 #     name='google',
 #     client_id="",
@@ -104,6 +107,7 @@ GOOGLE_CLIENT_SECRET=""
 
 @app.route('/')
 def beforeLogin():
+    session['Permission']='Denied'
     return render_template("login.html")
 
 @app.route('/login')
@@ -123,7 +127,9 @@ def home():
         "grant_type": "authorization_code",
         "redirect_uri": "http://127.0.0.1:5000/home"
     })
-    # print(colored(r.json(), "red"))
+    print("Color",r.json())
+
+    
     # r = requests.get(f'https://www.googleapis.com/oauth2/v2/userinfo?access_token={r.json()["access_token"]}').json()
     # #user = c.execute("SELECT * FROM users WHERE user_id=:user_id", {"user_id": r["id"]}).fetchall()
     # if len(user) != 0:
@@ -139,7 +145,14 @@ def home():
 
     # if session.get("next"):
     #     return redirect(session.get("next"))
-    return render_template("home.html")
+    v=r.json()
+    print(type(v))
+    if "access_token" in v.keys() or session.get("Permission")=="Access":
+        session['Permission']='Access'
+        return render_template("home.html")
+    else:
+        session['Permission']='Denied'
+        return "Invalid Request"
     #return render_template("home.html")
 # @app.route('/uploadImageProcess',method=['GET'])
 # def uploadImageProcess():
