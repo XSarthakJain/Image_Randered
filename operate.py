@@ -9,6 +9,10 @@ import os
 #from werkzeug.utils import secure_filename
 from authlib.integrations.flask_client import OAuth
 from termcolor import colored
+import json
+
+with open("config.json",'r') as c:
+    params=json.load(c)["params"]
 
 
 # UPLOAD_FOLDER = '/static/'
@@ -173,9 +177,14 @@ def home():
 
 #     return "uploadImageProcess"
 
-@app.route('/upload_image')
+@app.route('/upload_image',methods=['GET', 'POST'])
 def upload_image():
-    return render_template("upload_image.html")
+    if session.get("Permission")=='Access':
+        img = request.args["imageData"]
+        print(img)
+        return render_template("upload_image.html")
+    else:
+        return "Invalid Request"
 
 
 
