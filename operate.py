@@ -6,10 +6,15 @@ import os
 # from flask.ext.sqlalchemy import SQLAlchemy
 import os
 # from flask import Flask, flash, request, redirect, url_for
-#from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
+
+
 from authlib.integrations.flask_client import OAuth
 from termcolor import colored
 import json
+
+# from werkzeug import secure_filename
 
 with open("config.json",'r') as c:
     params=json.load(c)["params"]
@@ -18,10 +23,15 @@ with open("config.json",'r') as c:
 # UPLOAD_FOLDER = '/static/'
 # ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)  
+
+app.config['UPLOAD_FOLDER']=params['upload_location']
 app.config['SECRET_KEY'] = 'oh_so_secret'
 oauth = OAuth(app)
 # GOOGLE_CLIENT_ID=""
 # GOOGLE_CLIENT_SECRET=""
+
+GOOGLE_CLIENT_ID="931265162744-dpr2406ub157b0hqo2vs76mn2gg0v072.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="EwHXUuEy1sXQALTpIxBmooZc"
 
 
 
@@ -179,10 +189,14 @@ def home():
 
 @app.route('/upload_image',methods=['GET', 'POST'])
 def upload_image():
-    if session.get("Permission")=='Access':
-        img = request.args["imageData"]
-        print(img)
-        return render_template("upload_image.html")
+    if (request.method=="POST"):
+        f=request.files['imageData']
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
+        return render_template("upload_image.html",result = "static/img/"+f.filename)
+    # if session.get("Permission")=='Access':
+    #     img = request.args["imageData"]
+    #     print(img)
+        
     else:
         return "Invalid Request"
 

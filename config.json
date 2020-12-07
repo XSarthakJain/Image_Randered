@@ -1,6 +1,7 @@
 {
     "params":
     {
-        "local_Server":"True"
+        "local_Server":"True",
+        "upload_location":"E:\\Projects\\Image_Render\\static\\img"
     }
 }
