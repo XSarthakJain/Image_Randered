@@ -2,6 +2,7 @@
     "params":
     {
         "local_Server":"True",
-        "upload_location":"E:\\Projects\\Image_Render\\static\\img"
+        "upload_location":"/static/img",
+        "Github":"https://github.com/XSarthakJain/Image_Randered"
     }
 }
