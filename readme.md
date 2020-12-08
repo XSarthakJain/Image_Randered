@@ -28,11 +28,11 @@ We have to build a flask api along with a basic 2 page interface, which has the 
 ##  Screenshot
 ***
 ### Login Page
-![Login Page](https://github.com/XSarthakJain/Image_Randered/tree/master/images/Login.jpeg)
+![Login Page](https://github.com/XSarthakJain/Image_Randered/blob/master/images/Login.jpeg)
 ### Home Page
 ![Home Page](https://github.com/XSarthakJain/Image_Randered/blob/master/images/Home.jpeg)
 ### Result Page
-![Result Page](https://github.com/XSarthakJain/Image_Randered/tree/master/images/Result.jpeg)
+![Result Page](https://github.com/XSarthakJain/Image_Randered/blob/master/images/Result.jpeg)
 ## Requirements
 1. Python
 2. Flask
