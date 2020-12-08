@@ -2,6 +2,9 @@
 
 {%block body%}
             <div class="innner_Content">
+
+                <h4 style="padding:8px;">Hii {{name}}</h4>
+
                 <h4>Choose a Image</h4><br><hr>
                 <form  action="/upload_image" enctype="multipart/form-data" method="post">
                 <input type="file" name="imageData" id="SelectFileId" accept="image/*">
