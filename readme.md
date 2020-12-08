@@ -25,6 +25,7 @@ We have to build a flask api along with a basic 2 page interface, which has the 
 *  HTML
 *  CSS
 *  JavaScript
+*  Bootstrap
 ##  Screenshot
 ***
 ### Login Page
@@ -37,7 +38,11 @@ We have to build a flask api along with a basic 2 page interface, which has the 
 1. Python
 2. Flask
 3. MySQL
-
+4. Google Auth API
+5. OS Module
+6. sqlalchemy Module
+7. requests Module
+8. datetime
 
 ##  Contributing
 ***
