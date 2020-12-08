@@ -42,9 +42,6 @@ oauth = OAuth(app)
 # GOOGLE_CLIENT_ID=""
 # GOOGLE_CLIENT_SECRET=""
 
-GOOGLE_CLIENT_ID="931265162744-dpr2406ub157b0hqo2vs76mn2gg0v072.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET="EwHXUuEy1sXQALTpIxBmooZc"
-
 
 @app.route('/')
 def beforeLogin():
