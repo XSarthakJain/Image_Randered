@@ -39,25 +39,23 @@ oauth = OAuth(app)
 
 # Google Id and Secret Key
 
-# GOOGLE_CLIENT_ID=""
-# GOOGLE_CLIENT_SECRET=""
 
 
 @app.route('/')
 def beforeLogin():
     if session.get("Permission")=="Access":
-        return render_template("home.html")
+        return render_template("home.html",param=params,isAppear=True)
     else:
         session['Permission']='Denied'
         session.get("email")==""
         session.get("name")==""
-        return render_template("login.html")
+        return render_template("login.html",param=params,isAppear=True)
 
 @app.route('/login')
 def login():
 
     if session.get("Permission")=="Access":
-        return render_template("home.html")
+        return render_template("home.html",param=params,isAppear=True)
     elif request.args.get("next"):
         session["next"]=request.args.get("next")
     
@@ -92,7 +90,7 @@ def home():
 
     if "access_token" in v.keys() or session.get("Permission")=="Access":
         session['Permission']='Access'
-        return render_template("home.html",name=session.get("name"))
+        return render_template("home.html",name=session.get("name"),param=params,isAppear=True)
     else:
         session['Permission']='Denied'
         return "<center><h4>Invalid Request</h4><br><a href='/'>Please Login</a></center>"
@@ -127,7 +125,7 @@ def upload_image():
 
             f=request.files['imageData']
             f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
-            return render_template("upload_image.html",result = "static//img//"+f.filename)
+            return render_template("upload_image.html",result = "static//img//"+f.filename,param=params,isAppear=True)
                 
         else:
             return "<center><h4>Invalid Request</h4><a href='/'>Please Login</a></center>"
@@ -137,8 +135,13 @@ def upload_image():
         return "<center><h4>"+message+"</h4></center>"
 
 
-
-
+# LogOut
+@app.route('/logout')
+def logOut():
+    session['Permission']='Denied'
+    session.get("email")==""
+    session.get("name")==""
+    return render_template("login.html",param=params,isAppear=False)
 app.run(debug=True)
 
 

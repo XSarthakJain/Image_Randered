@@ -24,3 +24,12 @@ function readURL(input) {
     readURL(this);
   });
   
+
+  // Logout
+  function logOut(){
+    if (confirm("Do you want to logOut!")) {
+      window.location.href="/logout";
+    } else {
+      txt = "You pressed Cancel!";
+    }
+  }
