@@ -4,13 +4,15 @@
 An ImageRender created using Flask.
 
 ##  What is it?
----
-We have to build a flask api along with a basic 2 page interface, which has the following functionality:
-1. Simple interface to upload images and when you click the "submit" button, it shows a new page with the name of the uploaded image.
-2. Put in place a throttle for api call rate, let's say 5 / min. Please share an api script to test the throttle limit.
-3. Continuing from Part A, build a google auth based login based authorization. 
-4. In addition to the interface functionality we have to render the uploaded image in the interface. Also, implement a zoom functionality, wherein, a small window pane pops-up and shows a zoomed-in image as one hovers over the image using mouse cursor (look into the zoom-in functionality. 
+---We  built a flask api along with a basic 2 page interface, which has the following functionality:
 
+An interface to upload images and when we click the "submit" button, it shows a new page with the name of the uploaded image.
+
+We set a throttle for api call rate, let's say 5 / min.
+
+Continuing from Part A, build a google auth based login based authorization.
+
+In addition to the interface functionality we have rendered the uploaded image in the interface. Also, we implement a zoom functionality, wherein, a small window pane pops-up and shows a zoomed-in image as one hovers over the image using mouse cursor (look into the zoom-in functionality.
 ##  Features
 ---
 *  Google Auth Autherization
